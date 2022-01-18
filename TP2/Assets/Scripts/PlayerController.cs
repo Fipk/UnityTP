@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpIntensity, ForceMode2D.Impulse);
             canDoubleJump = false;
+            Debug.Log("double");
         }
 
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -42,11 +43,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsJumping", true);
         } else if (!Physics2D.OverlapCircle(detectPosition, 0.01f, groundMask))
         {
-            canDoubleJump = true;
+            
             isGrounded = false;
             animator.SetBool("IsJumping", true);
         } else if (Physics2D.OverlapCircle(detectPosition, 0.01f, groundMask) && !isGrounded)
         {
+            canDoubleJump = true;
             isGrounded = true;
             animator.SetBool("IsJumping", false);
         }
