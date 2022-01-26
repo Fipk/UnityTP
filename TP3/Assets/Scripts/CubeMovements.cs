@@ -7,7 +7,7 @@ public class CubeMovements : MonoBehaviour
 {
     public GameObject[] winBlocks;
     public GameObject[] movableBlocks;
-    bool isWinning;
+    int isWinning;
     public List<Vector3> coordinateList;
 
     void Start()
@@ -18,22 +18,21 @@ public class CubeMovements : MonoBehaviour
 
     void CheckIfAllWinBlocksAreCovered()
     {
+        isWinning = 0;
         for (int i = 0; i < winBlocks.Length; i++)
         {
             for (int j = 0; j < movableBlocks.Length; j++)
             {
+                Debug.Log(winBlocks[i].transform.position + new Vector3(0, 1, 0) + " " +
+                          movableBlocks[j].transform.position);
                 if (winBlocks[i].transform.position + new Vector3(0, 1, 0) == movableBlocks[j].transform.position)
                 {
-                    isWinning = true;
-                }
-                else
-                {
-                    isWinning = false;
+                    isWinning++;
                 }
             }
         }
 
-        if (isWinning)
+        if (isWinning == winBlocks.Length)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
